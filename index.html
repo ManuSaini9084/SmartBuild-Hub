@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBuildHub | Premium Construction Solutions</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #FF7A00;
+      --primary-dark: #e06d00;
+      --dark-bg: #0B0F1C;
+      --card-bg: #0E1423;
+      --light-bg: #12172A;
+      --text-light: #E0E0E0;
+      --text-gray: #A0AEC0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background-color: var(--card-bg);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      padding: 15px 0;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      color: white !important;
+    }
+
+    .navbar-brand span {
+      color: var(--primary);
+    }
+
+    .nav-link {
+      color: var(--text-light) !important;
+      margin-right: 1rem;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .btn-orange {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 122, 0, 0.2);
+    }
+
+    .btn-orange:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 122, 0, 0.3);
+    }
+
+    .btn-outline-light {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 500;
+      padding: 8px 22px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .hero-section {
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,122,0,0.15) 0%, rgba(255,122,0,0) 70%);
+      z-index: 0;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .highlight {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-section .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 122, 0, 0.25);
+      z-index: -1;
+    }
+
+    .hero-section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-light);
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats-box {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .stats-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .stats-box:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stats-box:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .stats-box h3 {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin: 10px 0;
+    }
+
+    .stats-box p {
+      color: var(--text-gray);
+      margin: 0;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .project-section {
+      padding: 100px 0;
+      background-color: var(--dark-bg);
+      position: relative;
+    }
+
+    .section-title {
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+    }
+
+    .section-heading {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section-subheading {
+      color: var(--text-gray);
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      height: 100%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-img-top {
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.05);
+    }
+
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(11, 15, 28, 0.9) 0%, transparent 50%);
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 2;
+      padding: 25px;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 3;
+    }
+
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .card-btn i {
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-btn:hover {
+      color: white;
+    }
+
+    .card-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    .process-card {
+      background: linear-gradient(145deg, #121A30, #0D1325);
+      border-radius: 16px;
+      padding: 30px;
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 122, 0, 0.2);
+    }
+
+    .process-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 122, 0, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .process-card h5 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .process-card p {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .testimonial-box {
+      background: linear-gradient(135deg, #121A30, #0D1325);
+      color: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .testimonial-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 122, 0, 0.3);
+    }
+
+    .testimonial-box::before {
+      content: "SmartBuildHub";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 5rem;
+      color: rgba(255, 122, 0, 0.1);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-box .text-warning {
+      color: var(--primary) !important;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-box p {
+      font-style: italic;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 15px;
+    }
+
+    .author-info strong {
+      display: block;
+      font-weight: 600;
+    }
+
+    .author-info span {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      background-color: var(--card-bg);
+      padding: 60px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .footer-links a i {
+      margin-right: 10px;
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      color: white;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 0.9rem;
+    }
+
+    /* Animation for counter */
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .counter {
+      display: inline-block;
+      animation: countUp 1s ease-out forwards;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .hero-section h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero-section::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 100px 0 60px;
+        text-align: center;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.4rem;
+      }
+      
+      .hero-section p {
+        margin: 0 auto 30px;
+      }
+      
+      .section-heading {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-building me-2"></i>Smart<span>Build</span>Hub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+          <li class="nav-item">
+            <a href="#" class="btn btn-orange ms-3">Sign In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <p class="text-uppercase text-warning fw-semibold mb-3" data-aos="fade-up">Building Tomorrow Today</p>
+          <h1 data-aos="fade-up" data-aos-delay="100">Transforming <span class="highlight">Visions</span> Into<br />Exceptional <span class="highlight">Structures</span></h1>
+          <p class="mt-3 mb-4" data-aos="fade-up" data-aos-delay="200">With over 25 years of experience, we deliver innovative construction solutions that exceed expectations and stand the test of time.</p>
+          <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="#" class="btn btn-orange me-3">Get Started</a>
+            <a href="#" class="btn btn-outline-light">Our Projects</a>
+          </div>
+        </div>
+        <div class="col-lg-6 mt-5 mt-lg-0">
+          <div class="row text-center text-white">
+            <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="400">
+              <div class="stats-box">
+                <h3 id="yearsCounter">30</h3>
+                <p>Years Experience</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="500">
+              <div class="stats-box">
+                <h3 id="projectsCounter">250</h3>
+                <p>Projects Completed</p>
+              </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+              <div class="stats-box">
+                <h3 id="satisfactionCounter">98</h3>
+                <p>Client Satisfaction</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Showcase Section -->
+  <section class="project-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-title" data-aos="fade-up">Our Projects</p>
+        <h2 class="section-heading text-white" data-aos="fade-up" data-aos-delay="100">Featured Construction Projects</h2>
+        <p class="section-subheading" data-aos="fade-up" data-aos-delay="200">Take a look at some of our most impressive projects, showcasing our commitment to quality, innovation, and excellence in construction.</p>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Modern Office Complex">
+              <div class="card-overlay"></div>
+              <div class="card-badge">Commercial</div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Modern Office Complex</h5>
+              <p class="card-text">A state-of-the-art commercial building featuring sustainable design and smart technology integration.</p>
+              <a href="#" class="card-btn">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Luxury Residential Tower">
+              <div class="card-overlay"></div>
+              <div class="card-badge">Residential</div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Luxury Residential Tower</h5>
+              <p class="card-text">Premium residential development with panoramic city views and world-class amenities.</p>
+              <a href="#" class="card-btn">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Sustainable Community Center">
+              <div class="card-overlay"></div>
+              <div class="card-badge">Public</div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Community Center</h5>
+              <p class="card-text">Sustainable community hub designed for social interaction and cultural activities.</p>
+              <a href="#" class="card-btn">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="#" class="btn btn-orange">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-5" style="background: linear-gradient(135deg, var(--dark-bg) 0%, var(--light-bg) 100%);">
+    <div class="container text-center">
+      <p class="section-title text-warning" data-aos="fade-up">Our Process</p>
+      <h2 class="section-heading fw-bold mb-4" data-aos="fade-up">How SmartBuild Hub Works</h2>
+      <p class="section-subheading mb-5" data-aos="fade-up">Our innovative platform transforms the construction journey from concept to completion through an intuitive digital workflow that connects all stakeholders.</p>
+
+      <div class="row g-4">
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="process-card">
+            <div class="process-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <h5>Project Planning</h5>
+            <p>Define requirements, set budgets, and establish timelines in a collaborative environment.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="process-card">
+            <div class="process-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h5>Team Assembly</h5>
+            <p>Connect with architects, contractors, and suppliers through our verified network.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="process-card">
+            <div class="process-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h5>Project Execution</h5>
+            <p>Monitor progress, approve changes instantly, and maintain clear communication.</p>
+          </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+          <div class="process-card">
+            <div class="process-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h5>Project Completion</h5>
+            <p>Receive documentation, warranty info, and maintenance schedules for your new build.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-5" style="background-color: var(--dark-bg);">
+    <div class="container text-center">
+      <p class="section-title text-warning" data-aos="fade-up">Testimonials</p>
+      <h2 class="section-heading fw-bold mb-4" data-aos="fade-up">What Our Clients Say</h2>
+      <p class="section-subheading mb-5" data-aos="fade-up">Read testimonials from our satisfied clients who have experienced our dedication to quality, reliability, and excellence in construction.</p>
+
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-box">
+            <div class="text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p>“Working with this construction team was a fantastic experience. Their attention to detail and commitment to quality exceeded our expectations.”</p>
+            <div class="testimonial-author">
+              <div class="author-img">SJ</div>
+              <div class="author-info">
+                <strong>Sarah Johnson</strong>
+                <span>Property Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-box">
+            <div class="text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p>“I’m extremely impressed with the professionalism and expertise demonstrated throughout our office building project. Exceptional results.”</p>
+            <div class="testimonial-author">
+              <div class="author-img">MT</div>
+              <div class="author-info">
+                <strong>Michael Thompson</strong>
+                <span>Business Owner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="testimonial-box">
+            <div class="text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p>“Our home renovation was handled with such care and precision. The team offered creative solutions and transformed our space.”</p>
+            <div class="testimonial-author">
+              <div class="author-img">ER</div>
+              <div class="author-info">
+                <strong>Emily Rodriguez</strong>
+                <span>Homeowner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h3 class="footer-title">SmartBuildHub</h3>
+          <p class="text-muted mt-4">Transforming visions into exceptional structures with innovation, quality, and over 25 years of construction expertise.</p>
+          <div class="social-links mt-4">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 mb-5 mb-md-0">
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> About Us</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Services</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Projects</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-4 mb-5 mb-md-0">
+          <h3 class="footer-title">Services</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Construction</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Renovation</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Architecture</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Interior Design</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Project Management</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-4">
+          <h3 class="footer-title">Contact Us</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> 123 Construction St, New York</a></li>
+            <li><a href="#"><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</a></li>
+            <li><a href="#"><i class="fas fa-envelope me-2"></i> info@smartbuildhub.com</a></li>
+            <li><a href="#"><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM - 6PM</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 SmartBuildHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out'
+    });
+
+    // Counter animation for stats
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to animate counter
+      function animateCounter(element, finalValue, duration = 2000) {
+        let startTime = null;
+        const startValue = 0;
+        
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          const value = Math.floor(progress * (finalValue - startValue) + startValue);
+          element.textContent = value;
+          
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          } else {
+            element.textContent = finalValue;
+          }
+        }
+        
+        window.requestAnimationFrame(step);
+      }
+
+      // Set up Intersection Observer for counters
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Animate the counters
+            animateCounter(document.getElementById('yearsCounter'), 30);
+            animateCounter(document.getElementById('projectsCounter'), 250);
+            animateCounter(document.getElementById('satisfactionCounter'), 98);
+            
+            // Stop observing after animation
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+
+      // Observe the stats container
+      observer.observe(document.querySelector('.hero-section .row'));
+    });
+  </script>
+</body>
+</html>
